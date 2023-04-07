@@ -7,10 +7,21 @@ class PokemonForm extends StatelessWidget {
   final _form = GlobalKey<FormState>();
   final Map<String, String> _formData = {};
 
+  void _loadFormData(Pokemon pokemon) {
+    _formData['name'] = pokemon.name;
+    _formData['id'] = pokemon.id;
+    _formData['avatarUrl'] = pokemon.avatarUrl;
+    _formData['type'] = pokemon.type;
+  }
+
   PokemonForm({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pokemon = ModalRoute.of(context)?.settings.arguments as Pokemon;
+
+    _loadFormData(pokemon);
+
     return Scaffold(
       appBar: AppBar(title: Text("Pokémonsssss"), actions: [
         IconButton(
@@ -20,6 +31,7 @@ class PokemonForm extends StatelessWidget {
                 _form.currentState?.save();
                 Provider.of<Pokemons>(context, listen: false).put(
                   Pokemon(
+                    id: _formData['id']!,
                     name: _formData['name']!,
                     type: _formData['type']!,
                     avatarUrl: _formData['avatarUrl']!,
@@ -37,6 +49,7 @@ class PokemonForm extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
+                initialValue: _formData['name'],
                 decoration: InputDecoration(labelText: 'Name'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -51,6 +64,7 @@ class PokemonForm extends StatelessWidget {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Type'),
+                initialValue: _formData['type'],
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Type is required";
@@ -60,6 +74,7 @@ class PokemonForm extends StatelessWidget {
                 onSaved: (value) => _formData['type'] = value!,
               ),
               TextFormField(
+                initialValue: _formData['avatarUrl'],
                 decoration: InputDecoration(labelText: 'Picture URL'),
                 onSaved: (value) => _formData['avatarUrl'] = value!,
               ),

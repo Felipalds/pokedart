@@ -18,7 +18,8 @@ class PokemonList extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.USER_FORM);
+                Navigator.of(context).pushNamed(AppRoutes.USER_FORM,
+                    arguments: Pokemon(name: "", type: ""));
               },
               icon: Icon(Icons.add))
         ],

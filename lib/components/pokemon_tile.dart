@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:flutter/material.dart';
 import 'package:pokedart/models/pokemon.dart';
+import 'package:pokedart/provider/pokemons.dart';
 import 'package:pokedart/routes/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class PokemonTile extends StatelessWidget {
   final Pokemon pokemon;
@@ -28,13 +30,19 @@ class PokemonTile extends StatelessWidget {
             children: <Widget>[
               IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutes.USER_FORM);
+                  Navigator.of(context).pushNamed(
+                    AppRoutes.USER_FORM,
+                    arguments: pokemon,
+                  );
                 },
                 icon: Icon(Icons.edit),
                 color: Colors.orange,
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<Pokemons>(context, listen: false)
+                        .remove(pokemon);
+                  },
                   icon: Icon(Icons.delete),
                   color: Colors.red),
             ],

@@ -45,6 +45,7 @@ class Pokemons with ChangeNotifier {
   }
 
   void remove(Pokemon pokemon) {
+    print("HEREEEEE");
     if (pokemon != null && pokemon.id != null) {
       _items.remove(pokemon.id);
       notifyListeners();
