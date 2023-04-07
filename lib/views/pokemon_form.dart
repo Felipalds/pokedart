@@ -22,7 +22,22 @@ class PokemonForm extends StatelessWidget {
 
     _loadFormData(pokemon);
 
+    var color = Colors.white;
+    if (pokemon.type == 'Electric') {
+      color = Colors.yellow;
+    }
+    if (pokemon.type == 'Bug') {
+      color = Color.fromARGB(255, 185, 114, 174);
+    }
+    if (pokemon.type == 'Grass') {
+      color = Color.fromARGB(255, 103, 153, 105);
+    }
+    if (pokemon.type == 'Water') {
+      color = Colors.blue;
+    }
+
     return Scaffold(
+      backgroundColor: color,
       appBar: AppBar(title: Text("Pokémonsssss"), actions: [
         IconButton(
             onPressed: () {
@@ -78,6 +93,9 @@ class PokemonForm extends StatelessWidget {
                 decoration: InputDecoration(labelText: 'Picture URL'),
                 onSaved: (value) => _formData['avatarUrl'] = value!,
               ),
+              Image(
+                image: NetworkImage(pokemon.avatarUrl),
+              )
             ],
           ),
         ),
